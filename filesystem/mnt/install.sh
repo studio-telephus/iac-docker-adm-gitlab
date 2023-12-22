@@ -5,18 +5,17 @@ echo "Install the base tools"
 apt-get update
 apt-get install -y \
  curl vim wget htop unzip gnupg2 netcat-traditional \
- bash-completion git
+ bash-completion openssh-server perl
 
-echo "Install and configure the necessary dependencies"
-apt-get install -y curl openssh-server ca-certificates perl
+## Run pre-install scripts
+sh /mnt/setup-ca.sh
 
 #echo "Next, install Postfix (or Sendmail) to send notification emails"
 #apt-get install -y postfix
 
 ## Add the GitLab CE Repository
 apt-get install -y debian-archive-keyring \
- lsb-release ca-certificates \
-apt-transport-https software-properties-common
+ lsb-release software-properties-common
 
 ## Add the official GitLab apt repository for the community edition
 curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
