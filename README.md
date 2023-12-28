@@ -91,3 +91,23 @@ Test curl
 ## Upgrade
 
     https://docs.gitlab.com/ee/update/package
+
+## Manual conf
+
+Admin Area -> CI/CD -> Variables
+
+    GITLAB_ORIGIN=https://gitlab.adm.acme.corp/gitlab
+    NEXUS_ORIGIN=https://nexus.adm.acme.corp/nexus
+    SONAR_ORIGIN=https://sonarqube.adm.acme.corp/sonarqube
+    CI_NEXUS_MAVEN_URL=$NEXUS_ORIGIN/repository/maven-releases
+    CI_NEXUS_DOCKER_URL=nexus.adm.acme.corp:18443
+    SONAR_ANALYZE_TOKEN=changeit (mask)
+
+## Project "iam"
+
+### CI/CD Settings -> Variables
+
+    CI_NEXUS_MAVEN_PUBLISH_USERNAME=nx-common-publish (protect)
+    CI_NEXUS_MAVEN_PUBLISH_PASSWORD=changeit (protect, mask)   
+    CI_NEXUS_DOCKER_PUBLISH_USER=nx-docker-private-publish (protect)
+    CI_NEXUS_DOCKER_PUBLISH_PASSWORD=changeit (protect, mask)  
