@@ -8,7 +8,7 @@ locals {
     gitlab_rails['gitlab_shell_ssh_port'] = 22;
     nginx['enable'] = true;
     nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
-    nginx['ssl_certificate_key'] = '/etc/gitlab/private/server.key';
+    nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/private/server.key';
     letsencrypt['enable'] = false;
     external_url '${local.external_address}';
     gitlab_rails['initial_root_password'] = '${module.bw_platform_gitlab_initial.data.password}';
