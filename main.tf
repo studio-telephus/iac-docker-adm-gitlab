@@ -6,6 +6,7 @@ locals {
 
   env_template = <<-EOT
     GITLAB_OMNIBUS_CONFIG=gitlab_rails['gitlab_shell_ssh_port'] = 22;
+    GITLAB_OMNIBUS_CONFIG=nginx['enable'] = true;
     GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
     GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate_key'] = '/etc/gitlab/private/server.key';
     GITLAB_OMNIBUS_CONFIG=letsencrypt['enable'] = false;
