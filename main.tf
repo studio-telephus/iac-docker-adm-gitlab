@@ -21,10 +21,6 @@ locals {
   //  EOT
 }
 
-output "aa" {
-  value = compact(split("\n", local.env_template))
-}
-
 resource "docker_image" "gitlab" {
   name         = local.docker_image_name
   keep_locally = false
