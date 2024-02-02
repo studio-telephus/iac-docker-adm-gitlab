@@ -9,7 +9,8 @@ locals {
     GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
     GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate_key'] = '/etc/gitlab/private/server.key';
     GITLAB_OMNIBUS_CONFIG=letsencrypt['enable'] = false;
-    GITLAB_OMNIBUS_CONFIG=external_url '${local.external_address}'
+    GITLAB_OMNIBUS_CONFIG=external_url '${local.external_address}';
+    GITLAB_OMNIBUS_CONFIG=gitlab_rails['initial_root_password'] = '${module.bw_platform_gitlab_initial.data.password}';
   EOT
 
   //  env_template = <<EOT
