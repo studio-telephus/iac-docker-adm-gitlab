@@ -3,7 +3,7 @@ FROM gitlab/gitlab-ce:16.8.1-ce.0
 COPY ./filesystem /.
 COPY ./filesystem-shared-ca-certificates /.
 
-RUN find /mnt -print
+ARG _SERVER_KEY_PASSPHRASE
 
 RUN openssl rsa \
   -in /etc/gitlab/ssl/private/server-encrypted.key \

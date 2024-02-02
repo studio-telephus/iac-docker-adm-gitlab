@@ -1,13 +1,13 @@
 locals {
   docker_image_name = "tel-${var.env}-gitlab"
   container_name    = "container-${var.env}-gitlab"
-  fqdn              = "gitlab.docker.adm.acme.corp"
+  fqdn              = "gitlab.docker.${var.env}.acme.corp"
   external_address  = "https://telephus.k-space.ee/gitlab"
 
-  env_template = <<EOT
+  env_template = <<-EOT
     GITLAB_OMNIBUS_CONFIG=gitlab_rails['gitlab_shell_ssh_port'] = 22;
-    GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate'] = "/etc/gitlab/ssl/certs/server-chain.crt";
-    GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate_key'] = "/etc/gitlab/private/server.key";
+    GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
+    GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate_key'] = '/etc/gitlab/private/server.key';
     GITLAB_OMNIBUS_CONFIG=letsencrypt['enable'] = false;
     GITLAB_OMNIBUS_CONFIG=external_url '${local.external_address}'
   EOT
@@ -17,6 +17,10 @@ locals {
   //    BOOTSTRAPPABLE=${var.bootstrappable}
   //    %{~endif~}
   //  EOT
+}
+
+output "aa" {
+  value = compact(split("\n", local.env_template))
 }
 
 resource "docker_image" "gitlab" {
@@ -54,7 +58,7 @@ resource "docker_container" "gitlab" {
     ipv4_address = "10.10.0.121"
   }
 
-  env = split("\n", local.env_template)
+  env = compact(split("\n", local.env_template))
 
   healthcheck {
     interval     = "1m0s"
