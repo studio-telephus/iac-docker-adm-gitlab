@@ -4,14 +4,14 @@ locals {
   fqdn              = "gitlab.docker.${var.env}.acme.corp"
   external_address  = "https://telephus.k-space.ee/gitlab"
 
-  env_template = <<-EOT
-    GITLAB_OMNIBUS_CONFIG=gitlab_rails['gitlab_shell_ssh_port'] = 22;
-    GITLAB_OMNIBUS_CONFIG=nginx['enable'] = true;
-    GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
-    GITLAB_OMNIBUS_CONFIG=nginx['ssl_certificate_key'] = '/etc/gitlab/private/server.key';
-    GITLAB_OMNIBUS_CONFIG=letsencrypt['enable'] = false;
-    GITLAB_OMNIBUS_CONFIG=external_url '${local.external_address}';
-    GITLAB_OMNIBUS_CONFIG=gitlab_rails['initial_root_password'] = '${module.bw_platform_gitlab_initial.data.password}';
+  omnibus_template = <<-EOT
+    gitlab_rails['gitlab_shell_ssh_port'] = 22;
+    nginx['enable'] = true;
+    nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
+    nginx['ssl_certificate_key'] = '/etc/gitlab/private/server.key';
+    letsencrypt['enable'] = false;
+    external_url '${local.external_address}';
+    gitlab_rails['initial_root_password'] = '${module.bw_platform_gitlab_initial.data.password}';
   EOT
 
   //  env_template = <<EOT
@@ -56,7 +56,9 @@ resource "docker_container" "gitlab" {
     ipv4_address = "10.10.0.121"
   }
 
-  env = compact(split("\n", local.env_template))
+  env = [
+    "GITLAB_OMNIBUS_CONFIG=${local.omnibus_template}"
+  ]
 
   healthcheck {
     interval     = "1m0s"
