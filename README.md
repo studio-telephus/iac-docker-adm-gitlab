@@ -61,9 +61,9 @@ gitlab_rails['gitlab_email_enabled'] = true
 
 ##! If your SMTP server does not like the default 'From: gitlab@gitlab.example.com'
 ##! can change the 'From' with this setting.
-gitlab_rails['gitlab_email_from'] = 'gitlab@gitlab.adm.acme.corp'
+gitlab_rails['gitlab_email_from'] = 'gitlab@gitlab.docker.adm.acme.corp'
 gitlab_rails['gitlab_email_display_name'] = 'Gitlab'
-gitlab_rails['gitlab_email_reply_to'] = 'noreply@gitlab.adm.acme.corp'
+gitlab_rails['gitlab_email_reply_to'] = 'noreply@gitlab.docker.adm.acme.corp'
 gitlab_rails['gitlab_email_subject_suffix'] = '[GITLAB]'
 # gitlab_rails['gitlab_email_smime_enabled'] = false
 # gitlab_rails['gitlab_email_smime_key_file'] = '/etc/gitlab/ssl/gitlab_smime.key'
@@ -83,10 +83,10 @@ Then
 Test curl
 
     curl --cacert /opt/acme-pki.git/self-signed/franciumca.cer \
-        'https://gitlab.adm.acme.corp/gitlab' -v
+        'https://gitlab.docker.adm.acme.corp/gitlab' -v
 
     curl --insecure \
-        'https://gitlab.adm.acme.corp/gitlab' -v
+        'https://gitlab.docker.adm.acme.corp/gitlab' -v
 
 ## Upgrade
 
@@ -96,7 +96,7 @@ Test curl
 
 Admin Area -> CI/CD -> Variables
 
-    GITLAB_ORIGIN=https://gitlab.adm.acme.corp/gitlab
+    GITLAB_ORIGIN=https://gitlab.docker.adm.acme.corp/gitlab
     NEXUS_ORIGIN=https://nexus.adm.acme.corp/nexus
     SONAR_ORIGIN=https://sonarqube.adm.acme.corp/sonarqube
     CI_NEXUS_MAVEN_URL=$NEXUS_ORIGIN/repository/maven-releases

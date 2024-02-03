@@ -11,7 +11,6 @@ locals {
     nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/private/server.key';
     letsencrypt['enable'] = false;
     external_url '${local.external_address}';
-    gitlab_rails['initial_root_password'] = '${module.bw_platform_gitlab_initial.data.password}';
   EOT
 
   //  env_template = <<EOT
@@ -45,11 +44,12 @@ resource "docker_volume" "gitlab_logs" {
 }
 
 resource "docker_container" "gitlab" {
-  name     = local.container_name
-  image    = docker_image.gitlab.image_id
-  restart  = "on-failure"
-  must_run = true
-  hostname = local.container_name
+  name       = local.container_name
+  image      = docker_image.gitlab.image_id
+  restart    = "on-failure"
+  must_run   = true
+  hostname   = local.container_name
+  privileged = true
 
   networks_advanced {
     name         = "${var.env}-docker"
