@@ -51,6 +51,7 @@ resource "docker_container" "gitlab" {
   hostname   = local.container_name
   privileged = true
 
+
   networks_advanced {
     name         = "${var.env}-docker"
     ipv4_address = "10.10.0.121"
