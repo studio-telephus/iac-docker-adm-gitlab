@@ -5,7 +5,7 @@ locals {
   external_address  = "https://telephus.k-space.ee/gitlab"
 
   omnibus_template = <<-EOT
-    gitlab_rails['gitlab_shell_ssh_port'] = 22;
+    gitlab_rails['gitlab_shell_ssh_port'] = 2233;
     nginx['enable'] = true;
     nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
     nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/private/server.key';

@@ -1,4 +1,12 @@
-# gitlab
+# iac-docker-adm-gitlab
+
+1. Deploy this IaC to create the Gitlab Docker container.
+2. Get the temporary root password from `/etc/gitlab/initial_root_password`.
+3. Log in and change the temporary root password to the one saved in Bitwarden.
+4. Create a PAT for the root user and save it to Bitwarden under `platform_gitlab_api_key`
+5. Save the runner registration key to Bitwarden under `platform_gitlab_runner_registration_key`
+6. Deploy `iac-gitlab-config` to create the base configuration.
+7. Each group will then have their own repository to administer the group.
 
 ## Pre-flight
 
