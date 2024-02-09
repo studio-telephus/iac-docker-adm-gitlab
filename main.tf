@@ -30,9 +30,9 @@ resource "docker_image" "gitlab" {
     }
   }
   triggers = {
-    dir_sha1 = sha1(join("", [filesha1(
-      "${path.module}/Dockerfile"
-    )]))
+    dir_sha1 = sha1(join("", [
+      filesha1("${path.module}/Dockerfile")
+    ]))
   }
 }
 
@@ -45,7 +45,7 @@ resource "docker_volume" "gitlab_config" {
 }
 
 resource "docker_volume" "gitlab_logs" {
-  name = "volume-${var.env}-minio-logs"
+  name = "volume-${var.env}-gitlab-logs"
 }
 
 resource "docker_container" "gitlab" {
