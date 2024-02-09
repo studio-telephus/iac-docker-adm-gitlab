@@ -29,6 +29,11 @@ resource "docker_image" "gitlab" {
       _SERVER_KEY_PASSPHRASE = module.bw_gitlab_pk_passphrase.data.password
     }
   }
+  triggers = {
+    dir_sha1 = sha1(join("", [filesha1(
+      "${path.module}/Dockerfile"
+    )]))
+  }
 }
 
 resource "docker_volume" "gitlab_data" {
