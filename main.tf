@@ -36,26 +36,26 @@ resource "docker_image" "gitlab" {
   }
 }
 
-resource "docker_volume" "gitlab_data" {
-  name = "volume-${var.env}-gitlab-data"
-}
-
-resource "docker_volume" "gitlab_config" {
-  name = "volume-${var.env}-gitlab-config"
-}
-
-resource "docker_volume" "gitlab_logs" {
-  name = "volume-${var.env}-gitlab-logs"
-}
+//resource "docker_volume" "gitlab_data" {
+//  name = "volume-${var.env}-gitlab-data"
+//}
+//
+//resource "docker_volume" "gitlab_config" {
+//  name = "volume-${var.env}-gitlab-config"
+//}
+//
+//resource "docker_volume" "gitlab_logs" {
+//  name = "volume-${var.env}-gitlab-logs"
+//}
 
 resource "docker_container" "gitlab" {
-  name       = local.container_name
-  image      = docker_image.gitlab.image_id
-  restart    = "on-failure"
-  must_run   = true
+  name  = local.container_name
+  image = docker_image.gitlab.image_id
+  //  restart    = "on-failure"
+  //  must_run   = true
+  restart    = "unless-stopped"
   hostname   = local.container_name
   privileged = true
-
 
   networks_advanced {
     name         = "${var.env}-docker"
@@ -66,32 +66,37 @@ resource "docker_container" "gitlab" {
     "GITLAB_OMNIBUS_CONFIG=${local.omnibus_template}"
   ]
 
-  healthcheck {
-    interval     = "1m0s"
-    retries      = 5
-    start_period = "0s"
-    test = [
-      "CMD-SHELL",
-      "/opt/gitlab/bin/gitlab-healthcheck --fail --max-time 10",
-    ]
-    timeout = "30s"
+  ports {
+    internal = 22
+    external = 2233
   }
 
-  volumes {
-    volume_name    = docker_volume.gitlab_config.name
-    container_path = "/etc/gitlab"
-    read_only      = false
-  }
+  //  healthcheck {
+  //    interval     = "1m0s"
+  //    retries      = 5
+  //    start_period = "0s"
+  //    test = [
+  //      "CMD-SHELL",
+  //      "/opt/gitlab/bin/gitlab-healthcheck --fail --max-time 10",
+  //    ]
+  //    timeout = "30s"
+  //  }
 
-  volumes {
-    volume_name    = docker_volume.gitlab_logs.name
-    container_path = "/var/log/gitlab"
-    read_only      = false
-  }
-
-  volumes {
-    volume_name    = docker_volume.gitlab_data.name
-    container_path = "/var/opt/gitlab"
-    read_only      = false
-  }
+  //  volumes {
+  //    volume_name    = docker_volume.gitlab_config.name
+  //    container_path = "/etc/gitlab"
+  //    read_only      = false
+  //  }
+  //
+  //  volumes {
+  //    volume_name    = docker_volume.gitlab_logs.name
+  //    container_path = "/var/log/gitlab"
+  //    read_only      = false
+  //  }
+  //
+  //  volumes {
+  //    volume_name    = docker_volume.gitlab_data.name
+  //    container_path = "/var/opt/gitlab"
+  //    read_only      = false
+  //  }
 }
