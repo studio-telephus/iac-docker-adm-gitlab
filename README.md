@@ -8,6 +8,10 @@
 6. Deploy `iac-gitlab-config` to create the base configuration.
 7. Each group will then have their own repository to administer the group.
 
+## Helpers
+
+    docker inspect container-adm-gitlab | grep -i shm
+
 ## Pre-flight
 
 Before GitLab could be installed the *host* requires some preparation.
@@ -119,3 +123,7 @@ Admin Area -> CI/CD -> Variables
     CI_NEXUS_MAVEN_PUBLISH_PASSWORD=changeit (protect, mask)   
     CI_NEXUS_DOCKER_PUBLISH_USER=nx-docker-private-publish (protect)
     CI_NEXUS_DOCKER_PUBLISH_PASSWORD=changeit (protect, mask)  
+
+### Links
+
+- https://docs.gitlab.com/ee/install/docker.html
