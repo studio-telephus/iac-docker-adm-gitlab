@@ -20,7 +20,6 @@ Add the followings to /etc/sysctl.conf
 cat <<-EOF >> /etc/sysctl.conf
 ## For Gitlab
 kernel.shmall = 4194304
-kernel.shmall = 4194304
 kernel.sem = 250 32000 32 262
 net.core.somaxconn = 1024
 kernel.shmmax = 17179869184

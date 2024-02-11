@@ -81,6 +81,13 @@ resource "docker_container" "gitlab" {
     hard = 200
   }
 
+  sysctls = {
+    "net.core.somaxconn"         = "1024"
+    "kernel.shmall" = "4194304"
+    "kernel.shmmax" = "17179869184"
+    "kernel.sem"     = "250 32000 32 262"
+  }
+
   networks_advanced {
     name         = "${var.env}-docker"
     ipv4_address = "10.10.0.121"
