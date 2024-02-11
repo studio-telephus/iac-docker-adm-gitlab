@@ -59,13 +59,25 @@ resource "docker_container" "gitlab" {
   shm_size = 512
 
   ulimit {
+    name = "core"
+    soft = 0
+    hard = 0
+  }
+
+  ulimit {
     name = "nproc"
-    soft = 65535
-    hard = 65535
+    soft = 3101
+    hard = 3101
   }
 
   ulimit {
     name = "nofile"
+    hard = 65536
+    soft = 65536
+  }
+
+  ulimit {
+    name = "sigpending"
     hard = 65536
     soft = 65536
   }
@@ -77,8 +89,8 @@ resource "docker_container" "gitlab" {
   }
   ulimit {
     name = "memlock"
-    soft = 100
-    hard = 200
+    soft = 32768
+    hard = 32768
   }
 
   sysctls = {
