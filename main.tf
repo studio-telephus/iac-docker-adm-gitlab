@@ -58,6 +58,29 @@ resource "docker_container" "gitlab" {
   # privileged = true
   shm_size = 512
 
+  ulimit {
+    name = "nproc"
+    soft = 65535
+    hard = 65535
+  }
+
+  ulimit {
+    name = "nofile"
+    hard = 65536
+    soft = 65536
+  }
+
+  ulimit {
+    name = "cpu"
+    soft = 2
+    hard = 3
+  }
+  ulimit {
+    name = "memlock"
+    soft = 100
+    hard = 200
+  }
+
   networks_advanced {
     name         = "${var.env}-docker"
     ipv4_address = "10.10.0.121"
