@@ -1,4 +1,4 @@
-FROM gitlab/gitlab-ce:16.7.0-ce.0
+FROM gitlab/gitlab-ce:16.7.5-ce.0
 
 COPY ./filesystem /.
 COPY ./filesystem-shared-ca-certificates /.
