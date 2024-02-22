@@ -5,12 +5,16 @@ locals {
   external_address  = "https://telephus.k-space.ee/gitlab"
 
   omnibus_template = <<-EOT
-    gitlab_rails['gitlab_shell_ssh_port'] = 22;
+    gitlab_rails['gitlab_shell_ssh_port'] = 2424;
     nginx['enable'] = true;
     nginx['ssl_certificate'] = '/etc/gitlab/ssl/certs/server-chain.crt';
     nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/private/server.key';
     letsencrypt['enable'] = false;
     external_url '${local.external_address}';
+    puma['worker_processes'] = 5;
+    puma['min_threads'] = 4;
+    puma['max_threads'] = 4;
+    puma['per_worker_max_memory_mb'] = 1536;
   EOT
 
   //  env_template = <<EOT
@@ -110,8 +114,8 @@ resource "docker_container" "gitlab" {
   ]
 
   ports {
-    internal = 22
-    external = 2233
+    internal = 2424
+    external = 2424
   }
 
   healthcheck {
