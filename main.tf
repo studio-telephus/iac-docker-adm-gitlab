@@ -57,52 +57,52 @@ resource "docker_container" "gitlab" {
   image = docker_image.gitlab.image_id
   //  restart    = "on-failure"
   //  must_run   = true
-  restart  = "unless-stopped"
-  hostname = local.container_name
+  restart    = "unless-stopped"
+  hostname   = local.container_name
   privileged = true
-  shm_size = 1024
+  shm_size   = 1024
 
-//  ulimit {
-//    name = "core"
-//    soft = 0
-//    hard = 0
-//  }
-//
-//  ulimit {
-//    name = "nproc"
-//    soft = 3101
-//    hard = 3101
-//  }
-//
-//  ulimit {
-//    name = "nofile"
-//    hard = 65536
-//    soft = 65536
-//  }
-//
-//  ulimit {
-//    name = "sigpending"
-//    hard = 65536
-//    soft = 65536
-//  }
-//
-//  ulimit {
-//    name = "cpu"
-//    soft = 2
-//    hard = 3
-//  }
-//  ulimit {
-//    name = "memlock"
-//    soft = 32768
-//    hard = 32768
-//  }
-//
-//  sysctls = {
-//    "net.core.somaxconn"         = "1024"
-//    "kernel.shmall" = "4194304"
-//    "kernel.shmmax" = "17179869184"
-//    "kernel.sem"     = "250 32000 32 262"
-//  }
+  //  ulimit {
+  //    name = "core"
+  //    soft = 0
+  //    hard = 0
+  //  }
+  //
+  //  ulimit {
+  //    name = "nproc"
+  //    soft = 3101
+  //    hard = 3101
+  //  }
+  //
+  //  ulimit {
+  //    name = "nofile"
+  //    hard = 65536
+  //    soft = 65536
+  //  }
+  //
+  //  ulimit {
+  //    name = "sigpending"
+  //    hard = 65536
+  //    soft = 65536
+  //  }
+  //
+  //  ulimit {
+  //    name = "cpu"
+  //    soft = 2
+  //    hard = 3
+  //  }
+  //  ulimit {
+  //    name = "memlock"
+  //    soft = 32768
+  //    hard = 32768
+  //  }
+  //
+  //  sysctls = {
+  //    "net.core.somaxconn"         = "1024"
+  //    "kernel.shmall" = "4194304"
+  //    "kernel.shmmax" = "17179869184"
+  //    "kernel.sem"     = "250 32000 32 262"
+  //  }
 
   networks_advanced {
     name         = "${var.env}-docker"
