@@ -12,4 +12,5 @@ RUN openssl rsa \
 
 RUN bash /mnt/setup-ca.sh
 
+
 EXPOSE 22 80 443
