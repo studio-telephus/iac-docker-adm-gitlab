@@ -113,6 +113,12 @@ resource "docker_container" "gitlab" {
     "GITLAB_OMNIBUS_CONFIG=${local.omnibus_template}"
   ]
 
+  log_driver = "json-file"
+  log_opts = {
+    "max-size" = "100m"
+    "max-file" = "1"
+  }
+
   ports {
     internal = 2424
     external = 2424
