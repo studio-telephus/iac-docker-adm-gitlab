@@ -122,7 +122,3 @@ Admin Area -> CI/CD -> Variables
     CI_NEXUS_MAVEN_PUBLISH_PASSWORD=changeit (protect, mask)   
     CI_NEXUS_DOCKER_PUBLISH_USER=nx-docker-private-publish (protect)
     CI_NEXUS_DOCKER_PUBLISH_PASSWORD=changeit (protect, mask)  
-
-### Links
-
-- https://docs.gitlab.com/ee/install/docker.html
